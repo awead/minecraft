@@ -1,13 +1,36 @@
+version: "3.8"
+
 services:
-  minecraft:
+  vanilla:
     image: itzg/minecraft-server
     ports:
       - "25565:25565"
     environment:
+      DIFFICULTY: "easy"
       EULA: "TRUE"
+      MOTD: "Vanilla Minecraft (defaults only!)"
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    volumes:
+      - ./data/vanilla:/data
+
+  mods:
+    image: itzg/minecraft-server
+    ports:
+      - "25565:25565"
+    environment:
+      CF_PAGE_URL: "https://www.curseforge.com/minecraft/modpacks/all-the-mods-8"
+      EULA: "TRUE"
+      MOTD: "All the Mods 8"
+      REMOVE_OLD_MODS: "true"
+      TYPE: AUTO_CURSEFORGE
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
     deploy:
       resources:
         limits:
-          memory: 1.5G
+          memory: 4G
     volumes:
-      - "./data:/data"
+      - ./data/mods:/data
