@@ -18,12 +18,13 @@ services:
   mods:
     image: itzg/minecraft-server
     ports:
-      - "25565:25565"
+      - "25566:25565"
     environment:
-      CF_PAGE_URL: "https://www.curseforge.com/minecraft/modpacks/all-the-mods-8"
+      CF_PAGE_URL: "https://www.curseforge.com/minecraft/modpacks/skyfactory-4"
       EULA: "TRUE"
-      MOTD: "All the Mods 8"
-      REMOVE_OLD_MODS: "true"
+      MODE: "creative"
+      MOTD: "Skyfactory 4"
+      REMOVE_OLD_MODS: "false"
       TYPE: AUTO_CURSEFORGE
     tty: true
     stdin_open: true
@@ -34,3 +35,15 @@ services:
           memory: 4G
     volumes:
       - ./data/mods:/data
+
+  bedrock:
+    image: itzg/minecraft-bedrock-server
+    ports:
+      - "19132:19132"
+    environment:
+      DIFFICULTY: "easy"
+      EULA: "TRUE"
+      GAMEMODE: "creative"
+      MOTD: "Local Bedrock Server"
+    volumes:
+      - ./data/bedrock
